@@ -1,6 +1,10 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const compression = require('compression');
+
+const graphqlHTTP = require('express-graphql');
+const graphqlSchema = require('./graphqlSchema');
 
 const mongoConn = require('./mongoConnection')();
 
@@ -15,7 +19,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Mount the APIs specific to version
-// app.use('/api/v1', require('./api/v1'));
 app.use(require('./src/v1'));
+
+app.use('/', graphqlHTTP({
+  schema: graphqlSchema,
+  graphiql: ((process.NODE_ENV !== 'production') ? true : false),
+  /*rootValue: {},
+  context: {},
+  pretty: false,
+  formatError: undefined*/
+}));
 
 module.exports = app;

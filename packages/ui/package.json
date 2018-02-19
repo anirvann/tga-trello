@@ -36,5 +36,6 @@
   "bugs": {
     "url": "https://github.com/anirvann/tga-trello/issues"
   },
-  "homepage": "https://github.com/anirvann/tga-trello#readme"
+  "homepage": "https://github.com/anirvann/tga-trello#readme",
+  "proxy": "http://localhost:4000/"
 }
